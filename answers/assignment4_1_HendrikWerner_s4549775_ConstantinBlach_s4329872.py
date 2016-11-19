@@ -123,4 +123,3 @@ def plot_digit_against_centroid(X, y, centroids, index: int):
 
 for i in range(3):
     plot_digit_against_centroid(X, y, centroids, randrange(X.shape[0]))
-
