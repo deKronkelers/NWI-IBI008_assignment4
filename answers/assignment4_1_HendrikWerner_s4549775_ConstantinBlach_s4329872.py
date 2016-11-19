@@ -1,8 +1,11 @@
 # author: Hendrik Werner s4549775
 # author: Constantin Blach s4329872
+from random import randrange
 
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy.io import loadmat
+from scipy.spatial import distance
 from sklearn.cluster import k_means
 
 from packages.clusterPlot import clusterPlot
@@ -68,5 +71,29 @@ for i, synth in enumerate(synths):
     plot_errors(synth, range(1, 11), "Synth {}".format(i + 1), "k", "validity measure")
 
 # assignment 4.1.3
+X = loadmat("./data/wildfaces.mat")["X"]
+k = 10
+centroids, labels, inertia = k_means(X, 10)
+
+
+def plot_face_against_centroid(centroids, index: int, k: int):
+    f, ax = plt.subplots(1, 2)
+    ax[0].imshow(np.reshape(X[index, :], (3, 40, 40)).T)
+    ax[0].set_title("Face {}".format(index))
+    face = np.reshape(X[index, :], (4800,))
+    min_index = 0
+    min_distance = distance.euclidean(face, centroids[0])
+    for i in range(1, k):
+        dist = distance.euclidean(face, centroids[i])
+        if dist < min_distance:
+            min_distance = dist
+            min_index = i
+    ax[1].imshow(np.reshape(centroids[min_index], (3, 40, 40)).T)
+    ax[1].set_title("Centroid {}".format(min_index))
+    plt.show()
+
+
+for i in range(3):
+    plot_face_against_centroid(centroids, randrange(X.shape[0]), k)
 
 # assignment 4.1.4
