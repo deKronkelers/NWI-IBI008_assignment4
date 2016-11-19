@@ -6,6 +6,7 @@ from scipy.io import loadmat
 from sklearn.cluster import k_means
 
 from packages.clusterPlot import clusterPlot
+from packages.clusterVal import clusterVal
 
 # assignment 4.1.1
 synth1 = loadmat("./data/synth1.mat")
@@ -35,6 +36,36 @@ for i, synth in enumerate(synths):
     plot_clustering(synth, 4, title="Synth {}".format(i + 1), xlabel="attribute 1", ylabel="attribute 2")
 
 # assignment 4.1.2
+def plot_errors(
+        data, range,
+        title: str = None,
+        xlabel: str = None,
+        ylabel: str = None
+):
+    X = data["X"]
+    y = data["y"]
+    entropies = []
+    purities = []
+    rands = []
+    jaccards = []
+    for k in range:
+        _, labels, _ = k_means(X, k)
+        entropy, purity, rand, jaccard = clusterVal(y, labels)
+        entropies.append(entropy)
+        purities.append(purity)
+        rands.append(rand)
+        jaccards.append(jaccard)
+    f = plt.subplot(111, title=title, xlabel=xlabel, ylabel=ylabel)
+    f.plot(range, entropies, color="r", label="Entropy")
+    f.plot(range, purities, color="g", label="Purity")
+    f.plot(range, rands, color="b", label="Rand")
+    f.plot(range, jaccards, color="black", label="Jaccard")
+    plt.legend()
+    plt.show()
+
+
+for i, synth in enumerate(synths):
+    plot_errors(synth, range(1, 11), "Synth {}".format(i + 1), "k", "validity measure")
 
 # assignment 4.1.3
 
