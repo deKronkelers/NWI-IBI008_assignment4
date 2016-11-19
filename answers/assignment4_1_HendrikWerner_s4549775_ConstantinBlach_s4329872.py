@@ -89,7 +89,7 @@ def find_min_distance_centroid(element, centroids) -> int:
     return min_index
 
 
-def plot_face_against_centroid(centroids, index: int):
+def plot_face_against_centroid(X, centroids, index: int):
     f, ax = plt.subplots(1, 2)
     ax[0].imshow(np.reshape(X[index, :], (3, 40, 40)).T)
     ax[0].set_title("Face {}".format(index))
@@ -100,6 +100,6 @@ def plot_face_against_centroid(centroids, index: int):
 
 
 for i in range(3):
-    plot_face_against_centroid(centroids, randrange(X.shape[0]), k)
+    plot_face_against_centroid(X, centroids, randrange(X.shape[0]))
 
 # assignment 4.1.4
