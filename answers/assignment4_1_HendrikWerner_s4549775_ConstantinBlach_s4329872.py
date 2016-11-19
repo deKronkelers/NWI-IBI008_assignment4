@@ -77,18 +77,23 @@ k = 10
 centroids, labels, inertia = k_means(X, k)
 
 
-def plot_face_against_centroid(centroids, index: int, k: int):
-    f, ax = plt.subplots(1, 2)
-    ax[0].imshow(np.reshape(X[index, :], (3, 40, 40)).T)
-    ax[0].set_title("Face {}".format(index))
-    face = np.reshape(X[index, :], (4800,))
+def find_min_distance_centroid(element, centroids) -> int:
     min_index = 0
-    min_distance = distance.euclidean(face, centroids[0])
-    for i in range(1, k):
-        dist = distance.euclidean(face, centroids[i])
+    element = np.reshape(element, centroids[0].shape)
+    min_distance = distance.euclidean(element, centroids[0])
+    for i in range(1, centroids.shape[0]):
+        dist = distance.euclidean(element, centroids[i])
         if dist < min_distance:
             min_distance = dist
             min_index = i
+    return min_index
+
+
+def plot_face_against_centroid(centroids, index: int):
+    f, ax = plt.subplots(1, 2)
+    ax[0].imshow(np.reshape(X[index, :], (3, 40, 40)).T)
+    ax[0].set_title("Face {}".format(index))
+    min_index = find_min_distance_centroid(X[index, :], centroids)
     ax[1].imshow(np.reshape(centroids[min_index], (3, 40, 40)).T)
     ax[1].set_title("Centroid {}".format(min_index))
     plt.show()
