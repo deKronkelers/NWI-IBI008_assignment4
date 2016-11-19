@@ -38,6 +38,7 @@ def plot_clustering(
 for i, synth in enumerate(synths):
     plot_clustering(synth, 4, title="Synth {}".format(i + 1), xlabel="attribute 1", ylabel="attribute 2")
 
+
 # assignment 4.1.2
 def plot_errors(
         data, range,
