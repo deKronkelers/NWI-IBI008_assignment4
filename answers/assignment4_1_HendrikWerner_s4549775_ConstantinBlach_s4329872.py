@@ -30,6 +30,7 @@ def plot_clustering(
     y = data["y"]
     centroids, labels, inertia = k_means(X, clusters)
     clusterPlot(X, labels, centroids, y)
+    plt.hold(True)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
