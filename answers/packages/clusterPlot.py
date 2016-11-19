@@ -45,7 +45,7 @@ def clusterPlot(X, clusterid, centroids=None, y=None):
     plt.hold(True)
     colors = [0]*ncolors
     for color in range(ncolors):
-        colors[color] = plt.cm.jet.__call__(color*255/(ncolors-1))[:3]
+        colors[color] = (1 - color / ncolors, 1 - color / ncolors, color / ncolors)
     for i, cs in enumerate(np.unique(y)):
         plt.plot(X[(y == cs).ravel(), 0], X[(y == cs).ravel(), 1], 'o',
                  markeredgecolor='k', markerfacecolor=colors[i], markersize=6,
