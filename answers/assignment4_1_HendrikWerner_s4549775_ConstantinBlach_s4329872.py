@@ -4,6 +4,7 @@ from random import randrange
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib import cm
 from scipy.io import loadmat
 from scipy.spatial import distance
 from sklearn.cluster import k_means
@@ -103,3 +104,23 @@ for i in range(3):
     plot_face_against_centroid(X, centroids, randrange(X.shape[0]))
 
 # assignment 4.1.4
+digits = loadmat("./data/digits.mat")
+X = digits["X"]
+y = digits["y"]
+k = 10
+centroids, _, _ = k_means(X, k)
+
+
+def plot_digit_against_centroid(X, y, centroids, index: int):
+    f, ax = plt.subplots(1, 2)
+    ax[0].imshow(np.reshape(X[index, :], (16, 16)), cmap=cm.binary)
+    ax[0].set_title("Digit {} ({})".format(index, y[index, 0]))
+    min_index = find_min_distance_centroid(X[index, :], centroids)
+    ax[1].imshow(np.reshape(centroids[min_index], (16, 16)), cmap=cm.binary)
+    ax[1].set_title("Centroid {}".format(min_index))
+    plt.show()
+
+
+for i in range(3):
+    plot_digit_against_centroid(X, y, centroids, randrange(X.shape[0]))
+
