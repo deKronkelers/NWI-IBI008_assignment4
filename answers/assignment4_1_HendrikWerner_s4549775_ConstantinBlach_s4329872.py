@@ -74,7 +74,7 @@ for i, synth in enumerate(synths):
 # assignment 4.1.3
 X = loadmat("./data/wildfaces.mat")["X"]
 k = 10
-centroids, labels, inertia = k_means(X, 10)
+centroids, labels, inertia = k_means(X, k)
 
 
 def plot_face_against_centroid(centroids, index: int, k: int):
