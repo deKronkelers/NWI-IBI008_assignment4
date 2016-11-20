@@ -43,7 +43,7 @@ for i, synth in enumerate(synths):
 
 # assignment 4.1.2
 def plot_errors(
-        data, range,
+        data, range: range,
         title: str = None,
         xlabel: str = None,
         ylabel: str = None
