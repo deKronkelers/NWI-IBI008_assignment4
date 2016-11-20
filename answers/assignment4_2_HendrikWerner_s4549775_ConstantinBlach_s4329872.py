@@ -28,7 +28,6 @@ def plot_cluster_dendrogram(data: np.ndarray, method: str, data_name: str):
 
     clusters = fcluster(Z, 4, criterion="maxclust")
     clusters = clusters - np.ones(clusters.shape)
-    plt.scatter(X[:, 0], X[:, 1], c=clusters)
     clusterPlot(X, clusters, y=y)
     plt.title("{} Clusters (method: {})".format(data_name, method))
     plt.xlabel("attribute 1")
