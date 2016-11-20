@@ -21,7 +21,7 @@ synths = [synth1, synth2, synth3, synth4]
 
 
 def plot_clustering(
-        data, clusters: int,
+        data: np.ndarray, clusters: int,
         title: str = None,
         xlabel: str = None,
         ylabel: str = None
@@ -43,7 +43,7 @@ for i, synth in enumerate(synths):
 
 # assignment 4.1.2
 def plot_errors(
-        data, range: range,
+        data: np.ndarray, range: range,
         title: str = None,
         xlabel: str = None,
         ylabel: str = None
